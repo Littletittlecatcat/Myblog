@@ -8,8 +8,8 @@ var express = require('express'),
     localStrategy = require("passport-local"),
     methodOverride = require("method-override"),
     User = require("./models/users"),
-    flash = require("connect-flash")
-seedDB = require("./seeds")
+    flash = require("connect-flash"),
+    seedDB = require("./seeds")
 
 
 //Requiring Routes
@@ -19,9 +19,16 @@ var campgroundRoutes = require("./routes/campgrounds"),
 
 
 mongoose.set('useUnifiedTopology', true);
-mongoose.connect("mongodb://localhost/yelp_camp", {
-    useNewUrlParser: true
+mongoose.connect("mongodb+srv://ywchen7:Michael7.@cluster0-ld6op.mongodb.net/test?retryWrites=true&w=majority", {
+    useNewUrlParser: true,
+    useCreateIndex: true
+}).then(() => {
+    console.log("Connect to DB");
+}).catch(err => {
+    console.log("Error:", err.message);
 });
+
+
 app.use(bodyParser.urlencoded({
     extended: true
 }));
